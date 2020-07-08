@@ -1,10 +1,9 @@
-package com.entity;
+package com.chainofresponsibility;
+
 import lombok.Data;
 
 @Data
-public class User {
+public class UserModel extends Model {
     private String name;
-
     private String age;
-
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!--发送消息的责任链-->
+    <bean id="sendMessageTemplate" class="com.chainofresponsibility.ProcessTemplate">
+        <property name="processList">
+            <list>
+                <ref bean="whiteListProcess"></ref>
+                <ref bean="sendMessageProcess"></ref>
+            </list>
+        </property>
+    </bean>
+
+    <!--通用流程处理器，维护多条责任链-->
+    <bean id="processController" class="com.chainofresponsibility.ProcessController">
+        <property name="templateConfig">
+            <map>
+                <entry key="sendMessage" value-ref="sendMessageTemplate" />
+            </map>
+        </property>
+    </bean>
+
+
+</beans>
